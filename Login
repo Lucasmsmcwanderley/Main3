@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class SistemaLogin {
+    private final Usuario usuario;
+    private final Scanner scanner;
+
+    public SistemaLogin(Usuario usuario) {
+        this.usuario = usuario;
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void exibirMenu() {
+        while (true) {
+            System.out.println("\nEscolha uma opção:");
+            System.out.println("1 - Login");
+            System.out.println("2 - Mudar nome de usuário");
+            System.out.println("3 - Mudar senha");
+            System.out.println("4 - Sair");
+
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir a quebra de linha
+
+            switch (opcao) {
+                case 1:
+                    realizarLogin();
+                    break;
+                case 2:
+                    mudarNomeUsuario();
+                    break;
+                case 3:
+                    mudarSenha();
+                    break;
+                case 4:
+                    System.out.println("Saindo...");
+                    return;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    private void realizarLogin() {
+        System.out.print("Nome de usuário: ");
+        String nomeUsuario = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        if (usuario.autenticar(nomeUsuario, senha)) {
+            System.out.println("Login bem-sucedido!");
+        } else {
+            System.out.println("Nome de usuário ou senha incorretos.");
+        }
+    }
+
+    private void mudarNomeUsuario() {
+        System.out.print("Digite o novo nome de usuário: ");
+        String novoNomeUsuario = scanner.nextLine();
+        usuario.setNomeUsuario(novoNomeUsuario);
+        System.out.println("Nome de usuário alterado com sucesso!");
+    }
+
+    private void mudarSenha() {
+        System.out.print("Digite a nova senha: ");
+        String novaSenha = scanner.nextLine();
+        usuario.setSenha(novaSenha);
+        System.out.println("Senha alterada com sucesso!");
+    }
+}
